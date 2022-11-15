@@ -1,4 +1,3 @@
-import app from './firebaseConfig';
 import database from '@react-native-firebase/database';
 import moment from 'moment';
 

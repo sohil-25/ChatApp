@@ -11,8 +11,8 @@ const MainNav = () => {
   return(
 <NavigationContainer>
   <StackNav.Navigator screenOptions={{headerShown:false}}>
-    <StackNav.Screen name="SignUpScreen" component={SignUpScreen} />
     <StackNav.Screen name="LoginScreen" component={LoginScreen} />
+    <StackNav.Screen name="SignUpScreen" component={SignUpScreen} />
     <StackNav.Screen name="DashboardScreen" component={DashboardScreen} />
     <StackNav.Screen name="ChatScreen" component={ChatScreen} />
   </StackNav.Navigator>
