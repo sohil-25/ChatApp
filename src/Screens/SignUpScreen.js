@@ -54,6 +54,7 @@ const SignUpScreen = props => {
       });
   };
   return (
+    !loader?
     <View
       style={{
         flex: 1,
@@ -79,6 +80,8 @@ const SignUpScreen = props => {
       />
       <ButtonComponent title="Sign Up" onPress={() => SignUPtoFIrebase()} />
     </View>
+    :
+    <ActivityIndicator size={80} style={{flex:1,justifyContent:'center',alignItems:'center'}} />
   );
 };
 

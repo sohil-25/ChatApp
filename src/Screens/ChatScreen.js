@@ -7,6 +7,7 @@ import {
   TextInput,
   FlatList,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import IMAGES from '../assets';
 import AppHeader from '../Components/AppHeader';
@@ -113,6 +114,7 @@ const ChatScreen = props => {
   };
 
   return (
+    !loader?
     <View style={{flex: 1, backgroundColor: '#000'}}>
       <AppHeader
         title={userName}
@@ -222,6 +224,8 @@ const ChatScreen = props => {
         </TouchableOpacity>
       </View>
     </View>
+    :
+    <ActivityIndicator size={80} style={{flex:1,justifyContent:'center',alignItems:'center'}} />
   );
 };
 

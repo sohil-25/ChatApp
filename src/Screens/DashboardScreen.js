@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, FlatList, Image} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList, Image, ActivityIndicator} from 'react-native';
 import AppHeader from '../Components/AppHeader';
 import {auth} from '../Firebase/firebaseConfig';
 import database from '@react-native-firebase/database';
@@ -133,22 +133,29 @@ const DashboardScreen = props => {
   const openGallery = async () => {
     console.log('open gallery clicked');
     launchImageLibrary('photo', response => {
+      console.log('resp=-=-=-=-++',response);
       setLoader(true);
-      console.log('res gallery', response?.assets[0]?.uri);
-      ImgToBase64.getBase64String(response?.assets[0]?.uri)
-        .then(async base64String => {
-          const uid = await AsyncStorage.getItem('UID');
-          console.log('uid in open gallery');
-          let source = 'data:image/jpeg;base64,' + base64String;
-          UpdateUserImage(source, uid).then(() => {
-            setImageUrl(response.assets[0].uri);
-            setLoader(false);
-          });
-        })
-        .catch(err => setLoader(false));
+      if(response.didCancel==true){
+        alert('No photo selected')
+        setLoader(false)
+      }else{
+        console.log('res gallery', response?.assets[0]?.uri);
+        ImgToBase64.getBase64String(response?.assets[0]?.uri)
+          .then(async base64String => {
+            const uid = await AsyncStorage.getItem('UID');
+            console.log('uid in open gallery');
+            let source = 'data:image/jpeg;base64,' + base64String;
+            UpdateUserImage(source, uid).then(() => {
+              setImageUrl(response.assets[0].uri);
+              setLoader(false);
+            });
+          })
+          .catch(err => setLoader(false));
+      }
     });
   };
   return (
+    !loader?
     <View style={{flex: 1, backgroundColor: '#000'}}>
       <AppHeader
         title="Messages"
@@ -248,6 +255,8 @@ const DashboardScreen = props => {
         )}
       />
     </View>
+    :
+    <ActivityIndicator size={80} style={{flex:1,justifyContent:'center',alignItems:'center'}} />
   );
 };
 

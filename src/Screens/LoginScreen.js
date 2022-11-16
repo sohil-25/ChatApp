@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, ActivityIndicator} from 'react-native';
 import IMAGES from '../assets';
 import ButtonComponent from '../Components/ButtonComponent';
 import TextInputComponent from '../Components/TextInputComponent';
@@ -47,6 +47,7 @@ const LoginScreen = props => {
       });
   };
   return (
+    !loader?
     <View
       style={{
         flex: 1,
@@ -76,6 +77,8 @@ const LoginScreen = props => {
         </Text>
       </TouchableOpacity>
     </View>
+    :
+    <ActivityIndicator size={80} style={{flex:1,justifyContent:'center',alignItems:'center'}} />
   );
 };
 
