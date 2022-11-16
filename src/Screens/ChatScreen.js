@@ -27,10 +27,10 @@ const ChatScreen = props => {
   const [userName, setUserName] = useState('');
 
   useEffect(() => {
-    Try();
+    fetchData();
   }, []);
 
-  const Try = async () => {
+  const fetchData = async () => {
     const currentUid = await AsyncStorage.getItem('UID');
     const {guestUid, UserName} = props.route.params;
     console.log('guestUid on chatcreen', guestUid);
